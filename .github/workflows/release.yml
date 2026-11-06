@@ -24,9 +24,6 @@ jobs:
         run: test "v$(node -p 'require("./package.json").version')" = "$GITHUB_REF_NAME"
       # Inside GitHub Actions `n8n-node release` lints, builds and publishes with provenance.
       - name: Publish to npm with provenance
-        env:
-          # Token until trusted publishing is set on npm; provenance still comes from OIDC.
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: |
           if npm view "n8n-nodes-cutpro@${GITHUB_REF_NAME#v}" version >/dev/null 2>&1; then
             echo "n8n-nodes-cutpro@${GITHUB_REF_NAME#v} is already on npm."
