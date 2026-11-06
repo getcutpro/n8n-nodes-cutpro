@@ -1,0 +1,62 @@
+{
+	"name": "n8n-nodes-cutpro",
+	"version": "0.1.0",
+	"description": "n8n node for Cut.Pro: generate videos, images and voices with Seedance, Wan, Kling, Veo, Nano Banana, Seedream, GPT Image and Gemini TTS using one API key",
+	"license": "MIT",
+	"homepage": "https://github.com/getcutpro/n8n-nodes-cutpro#readme",
+	"keywords": [
+		"n8n-community-node-package",
+		"n8n",
+		"cutpro",
+		"seedance",
+		"wan",
+		"kling",
+		"veo",
+		"nano-banana",
+		"seedream",
+		"gemini-tts",
+		"video-generation",
+		"image-generation",
+		"text-to-speech"
+	],
+	"author": {
+		"name": "Cut.Pro",
+		"email": "contact@cut.pro"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/getcutpro/n8n-nodes-cutpro.git"
+	},
+	"scripts": {
+		"build": "n8n-node build",
+		"build:watch": "tsc --watch",
+		"dev": "n8n-node dev",
+		"lint": "n8n-node lint",
+		"lint:fix": "n8n-node lint --fix",
+		"release": "n8n-node release",
+		"prepublishOnly": "n8n-node prerelease"
+	},
+	"files": [
+		"dist"
+	],
+	"n8n": {
+		"n8nNodesApiVersion": 1,
+		"strict": true,
+		"credentials": [
+			"dist/credentials/CutProApi.credentials.js"
+		],
+		"nodes": [
+			"dist/nodes/CutPro/CutPro.node.js"
+		]
+	},
+	"devDependencies": {
+		"@n8n/node-cli": "^0.55.5",
+		"eslint": "9.32.0",
+		"prettier": "3.6.2",
+		"release-it": "^21.1.0",
+		"typescript": "5.9.2"
+	},
+	"peerDependencies": {
+		"n8n-workflow": "*"
+	}
+}
