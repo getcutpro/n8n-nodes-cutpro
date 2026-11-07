@@ -11,6 +11,8 @@ import type {
 import { NodeApiError, NodeConnectionTypes, NodeOperationError } from 'n8n-workflow';
 
 const BASE_URL = 'https://api.cut.pro/api/v1';
+// Kept in step with package.json: it is how the API tells this node apart from the HTTP Request node.
+const USER_AGENT = 'n8n-nodes-cutpro/0.1.2';
 const MAX_SERVER_WAIT_SECONDS = 60;
 const HTTP_TIMEOUT_MS = (MAX_SERVER_WAIT_SECONDS + 30) * 1000;
 const GENERATION_KINDS = ['image', 'video', 'speech'];
@@ -30,7 +32,7 @@ async function cutProRequest(
 		url: `${BASE_URL}${path}`,
 		body: options.body,
 		qs: options.qs,
-		headers: options.headers,
+		headers: { 'User-Agent': USER_AGENT, ...options.headers },
 		json: true,
 		timeout: HTTP_TIMEOUT_MS,
 		returnFullResponse: true,

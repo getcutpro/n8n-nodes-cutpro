@@ -1,6 +1,6 @@
 {
 	"name": "n8n-nodes-cutpro",
-	"version": "0.1.1",
+	"version": "0.1.2",
 	"description": "n8n node for Cut.Pro: generate videos, images and voices with Seedance, Wan, Kling, Veo, Nano Banana, Seedream, GPT Image and Gemini TTS using one API key",
 	"license": "MIT",
 	"homepage": "https://github.com/getcutpro/n8n-nodes-cutpro#readme",

@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.1.2 (2026-11-07)
+
+- Identifies itself to the API as `n8n-nodes-cutpro/<version>`.
+
 ## 0.1.1 (2026-11-06)
 
 - Published from GitHub Actions with npm provenance.
