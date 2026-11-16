@@ -11,8 +11,6 @@ import type {
 import { NodeApiError, NodeConnectionTypes, NodeOperationError } from 'n8n-workflow';
 
 const BASE_URL = 'https://api.cut.pro/api/v1';
-// Kept in step with package.json: it is how the API tells this node apart from the HTTP Request node.
-const USER_AGENT = 'n8n-nodes-cutpro/0.1.2';
 const MAX_SERVER_WAIT_SECONDS = 60;
 const HTTP_TIMEOUT_MS = (MAX_SERVER_WAIT_SECONDS + 30) * 1000;
 const GENERATION_KINDS = ['image', 'video', 'speech'];
@@ -32,7 +30,7 @@ async function cutProRequest(
 		url: `${BASE_URL}${path}`,
 		body: options.body,
 		qs: options.qs,
-		headers: { 'User-Agent': USER_AGENT, ...options.headers },
+		headers: options.headers,
 		json: true,
 		timeout: HTTP_TIMEOUT_MS,
 		returnFullResponse: true,
@@ -43,7 +41,7 @@ async function cutProRequest(
 		const code = typeof body.code === 'string' ? body.code : 'UNEXPECTED_RESPONSE';
 		throw new NodeApiError(this.getNode(), body, {
 			httpCode: String(response.statusCode),
-			message: `Cut.Pro answered ${code}`,
+			message: code,
 			description: body.extra ? `Details: ${JSON.stringify(body.extra)}. Codes are explained at https://cut.pro/docs/en/errors` : 'Codes are explained at https://cut.pro/docs/en/errors',
 		});
 	}
@@ -100,15 +98,15 @@ async function generate(this: IExecuteFunctions, itemIndex: number): Promise<IDa
 	while (generation.status === 'processing') {
 		const seconds = Math.min(MAX_SERVER_WAIT_SECONDS, Math.floor((deadline - Date.now()) / 1000));
 		if (seconds <= 0) {
-			throw new NodeOperationError(this.getNode(), `Generation ${String(generation.id)} is still processing`, {
+			throw new NodeOperationError(this.getNode(), 'WAIT_TIMEOUT', {
 				itemIndex,
-				description: 'It keeps running and its credits stay charged. Read it later with the Get Generation operation, or raise Timeout (Minutes).',
+				description: `Generation ${String(generation.id)} is still processing and its credits stay charged. Read it later with Get, or raise Timeout (Minutes).`,
 			});
 		}
 		generation = await cutProRequest.call(this, 'GET', `/generations/${encodeURIComponent(String(generation.id))}`, { qs: { wait: seconds } });
 	}
 	if (generation.status === 'failed') {
-		throw new NodeOperationError(this.getNode(), `Generation failed: ${String(generation.error_code)}`, {
+		throw new NodeOperationError(this.getNode(), String(generation.error_code ?? 'GENERATION_FAILED'), {
 			itemIndex,
 			description: 'The credits were given back. SAFETY_BLOCKED, COPYRIGHT_BLOCKED and REAL_FACES_BLOCKED mean the model refused the content: change the prompt or the model. TIMEOUT and MEDIA_FAILED are worth another try.',
 		});

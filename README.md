@@ -1,6 +1,6 @@
 # n8n-nodes-cutpro: Seedance, Wan, Kling, Veo, Nano Banana and Gemini TTS in n8n
 
-[![npm](https://img.shields.io/npm/v/n8n-nodes-cutpro)](https://www.npmjs.com/package/n8n-nodes-cutpro) [![license](https://img.shields.io/npm/l/n8n-nodes-cutpro)](LICENSE)
+[![CI](https://github.com/getcutpro/n8n-nodes-cutpro/actions/workflows/ci.yml/badge.svg)](https://github.com/getcutpro/n8n-nodes-cutpro/actions/workflows/ci.yml) [![npm](https://img.shields.io/npm/v/n8n-nodes-cutpro)](https://www.npmjs.com/package/n8n-nodes-cutpro) [![license](https://img.shields.io/npm/l/n8n-nodes-cutpro)](LICENSE)
 
 An [n8n](https://n8n.io) community node for [Cut.Pro](https://cut.pro): generate videos, images and voices in your workflows with Seedance 2.5, Wan 3, Kling O3, Veo 3.1, Gemini Omni Flash, Nano Banana Pro, Seedream 5, Qwen Image, GPT Image, Grok Imagine, MiniMax and Gemini TTS voices, all with one API key. Priced per second of video, per image or per 1,000 characters of voice, in reais and dollars: see the [live price list](https://cut.pro/en/models). Pay with Pix or card; companies get an invoice.
 

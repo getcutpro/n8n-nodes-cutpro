@@ -26,6 +26,7 @@ export class CutProApi implements ICredentialType {
 		properties: {
 			headers: {
 				'X-Api-Key': '={{$credentials.apiKey}}',
+				'User-Agent': 'n8n-nodes-cutpro/0.1.2',
 			},
 		},
 	};
